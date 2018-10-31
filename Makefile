@@ -1,4 +1,4 @@
-.PHONY: all clean fclean re libimgui
+.PHONY: all clean fclean re
 
 #==========EXECUTABLES==========#
 
@@ -10,7 +10,7 @@ CXX= clang++
 CXXFLAGS= -Wall -Wextra -Werror -Wvla -std=c++14 -fsanitize=address -g3 -MMD
 #============HEADERS============#
 
-HEADER_DIR= ./ ./imgui
+HEADER_DIR= ./
 
 #============COLORS=============#
 
@@ -22,10 +22,10 @@ EOC=\033[0m
 
 SRC_DIR = ./
 
-SRC_FILE= imgui/imgui.cpp \
-imgui/imgui_demo.cpp \
-imgui/imgui_draw.cpp \
-imgui/imgui_widgets.cpp \
+SRC_FILE= imgui.cpp \
+imgui_demo.cpp \
+imgui_draw.cpp \
+imgui_widgets.cpp \
 imgui-SFML.cpp
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILE))
@@ -53,7 +53,7 @@ endif
 
 #=============RULES=============#
 
-all: libimgui $(OBJ_DIR) $(EXE)
+all: $(OBJ_DIR) $(EXE)
 
 $(EXE): $(OBJ)
 	@ar rc $(EXE) $(OBJ) && ranlib $(EXE)
@@ -61,25 +61,12 @@ $(EXE): $(OBJ)
 
 $(OBJ_DIR) :
 	@mkdir $(OBJ_DIR)
-	@mkdir $(OBJ_DIR)/imgui
-
-libimgui:
-	@if [ ! -d ./imgui ] ; \
-		then \
-			git clone https://github.com/ocornut/imgui; \
-			cp -rf ./imconfig.h imgui/; \
-			sleep 2; \
-	fi;
 
 $(OBJ_DIR)%.o: $(addprefix $(SRC_DIR), %.cpp) Makefile
 	$(CXX) $(CXXFLAGS) -c $< -o $@ $(addprefix -I , $(HEADER_DIR))
 
 clean:
 	@rm -rf $(OBJ_DIR)
-	@if [ -d ./imgui ] ; \
-	then \
-		rm -rf imgui; \
-	fi;
 	@echo "$(RED)[x]$(EOC) $(EXE)'s objects cleaned"
 
 fclean: clean
