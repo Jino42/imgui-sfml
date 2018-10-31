@@ -2,7 +2,7 @@
 
 #==========EXECUTABLES==========#
 
-EXE= imgui-sfml.a
+EXE= libimgui-sfml.a
 
 #=======COMPILER AND FLAGS======#
 
