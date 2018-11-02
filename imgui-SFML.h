@@ -26,9 +26,9 @@ namespace SFML
 
     void ProcessEvent(const sf::Event& event);
 
-    void Update(sf::RenderWindow& window);
-    void Update(sf::Window& window, sf::RenderTarget& target);
-    void Update(const sf::Vector2i& mousePos, const sf::Vector2f& displaySize);
+    void Update(sf::RenderWindow& window, sf::Time dt);
+    void Update(sf::Window& window, sf::RenderTarget& target, sf::Time dt);
+    void Update(const sf::Vector2i& mousePos, const sf::Vector2f& displaySize, sf::Time dt);
 
     void Render(sf::RenderTarget& target);
 
@@ -50,7 +50,6 @@ namespace SFML
 }
 
 // custom ImGui widgets for SFML stuff
-
 // Image overloads
     void Image(const sf::Texture& texture,
         const sf::Color& tintColor = sf::Color::White,
@@ -71,7 +70,6 @@ namespace SFML
     void Image(const sf::Sprite& sprite, const sf::Vector2f& size,
         const sf::Color& tintColor = sf::Color::White,
         const sf::Color& borderColor = sf::Color::Transparent);
-
 // ImageButton overloads
     bool ImageButton(const sf::Texture& texture, const int framePadding = -1,
                      const sf::Color& bgColor = sf::Color::Transparent,
